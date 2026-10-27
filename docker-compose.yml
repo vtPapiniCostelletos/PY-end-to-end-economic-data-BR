@@ -1,0 +1,106 @@
+
+services:
+
+#  minio:
+#    image: quay.io/minio/aistor/minio
+#    container_name: minio
+#    environment:
+#      MINIO_ROOT_USER:  minioadmin
+#      MINIO_ROOT_PASSWORD:  minio@1234!
+#    ports:
+#      - "9000:9000"
+#      - "9001:9001"
+#    command: server /data --console-address ":9001"
+#    volumes:
+#      - minio_data:/data
+#
+#
+#  minio_mc:
+#    image: quay.io/minio/mc
+#    container_name: minio_mc
+#    depends_on:
+#      - minio
+#    entrypoint: |
+#      sh -c 
+#      "
+#      sleep 10 &&
+#      mc alias set myminio http://minio:9000 minioadmin minio@1234! &&
+#      mc mb myminio/stage
+#      "
+
+  rustfs:
+    image: rustfs/rustfs:latest
+    container_name: rustfs
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      RUSTFS_ACCESS_KEY: "rustfsadmin"
+      RUSTFS_SECRET_KEY: "rustfs@1234!"
+      RUSTFS_ADDRESS: ":9000"
+      RUSTFS_CONSOLE_ENABLE: "true"
+    volumes:
+      - rustfs_data:/data
+    command: ["/data"]
+
+  rustfs_cli:
+    image: amazon/aws-cli:latest
+    container_name: rustfs_init
+    depends_on:
+      - rustfs
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        until aws --endpoint-url http://rustfs:9000 s3api list-buckets >/dev/null 2>&1; do
+          echo "A aguardar pelo RustFS..."
+          sleep 3
+        done
+        aws --endpoint-url http://rustfs:9000 s3 mb s3://stage || exit 1
+        echo "Bucket stage criado ou já existente."
+    environment:
+      AWS_ACCESS_KEY_ID: "rustfsadmin"
+      AWS_SECRET_ACCESS_KEY: "rustfs@1234!"
+      AWS_DEFAULT_REGION: "us-east-1"
+
+  postgres_airflow:
+    image: postgres:15
+    container_name: postgres-airflow
+    environment:
+      POSTGRES_USER: post_airflow
+      POSTGRES_PASSWORD: airflow123
+      POSTGRES_DB: airflow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+
+  airflow:
+    build:
+      context: .
+      dockerfile: airflow/config_airflow/airflow.Dockerfile
+    container_name: airflow
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://post_airflow:airflow123@postgres_airflow:5432/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: 'False'
+      AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
+      AIRFLOW__CORE__LOGGING_LEVEL: INFO
+      RUSTFS_ENDPOINT: http://rustfs:9000
+      RUSTFS_ACCESS_KEY: rustfsadmin
+      RUSTFS_SECRET_KEY: rustfs@1234!
+    depends_on:
+      - postgres_airflow
+      #- minio
+      - rustfs
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./airflow/dags:/opt/airflow/dags
+      - ./airflow/config_airflow:/opt/airflow/config_airflow
+    command: ["airflow","standalone"]
+  
+volumes:
+  postgres_data:
+  rustfs_data:
