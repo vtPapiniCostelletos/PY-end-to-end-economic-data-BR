@@ -1,0 +1,386 @@
+{
+  "info": {
+    "_postman_id": "8d4dbd17-7c5e-4c4e-8a73-annual-brazil-labor-market",
+    "name": "Brazil Unemployment and Labor Market (Annual)",
+    "description": "",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "All Indicators - Combined Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/NY.GDP.MKTP.CD;NE.CON.PRVT.ZS;NE.GDI.TOTL.ZS;NE.CON.GOVT.ZS;NE.EXP.GNFS.ZS;NE.IMP.GNFS.ZS;SL.UEM.TOTL.ZS;SL.IND.EMPL.ZS;SL.SRV.EMPL.ZS?source=2&format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "NY.GDP.MKTP.CD;NE.CON.PRVT.ZS;NE.GDI.TOTL.ZS;NE.CON.GOVT.ZS;NE.EXP.GNFS.ZS;NE.IMP.GNFS.ZS;SL.UEM.TOTL.ZS;SL.IND.EMPL.ZS;SL.SRV.EMPL.ZS"
+          ],
+          "query": [
+            {
+              "key": "source",
+              "value": "2"
+            },
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Requests all nine World Development Indicators series in one call. If this combined call is inconvenient for parsing, use the individual requests below."
+      },
+      "response": []
+    },
+    {
+      "name": "GDP - Current US$",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/NY.GDP.MKTP.CD?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "NY.GDP.MKTP.CD"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: NY.GDP.MKTP.CD. Gross domestic product in current US dollars."
+      },
+      "response": []
+    },
+    {
+      "name": "Household Consumption - % GDP",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/NE.CON.PRVT.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "NE.CON.PRVT.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: NE.CON.PRVT.ZS. Household and NPISH final consumption expenditure as a percentage of GDP."
+      },
+      "response": []
+    },
+    {
+      "name": "Gross Capital Formation - % GDP",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/NE.GDI.TOTL.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "NE.GDI.TOTL.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: NE.GDI.TOTL.ZS. Gross capital formation as a percentage of GDP; used as an investment proxy."
+      },
+      "response": []
+    },
+    {
+      "name": "Government Consumption - % GDP",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/NE.CON.GOVT.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "NE.CON.GOVT.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: NE.CON.GOVT.ZS. General government final consumption expenditure as a percentage of GDP."
+      },
+      "response": []
+    },
+    {
+      "name": "Exports - % GDP",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/NE.EXP.GNFS.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "NE.EXP.GNFS.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: NE.EXP.GNFS.ZS. Exports of goods and services as a percentage of GDP."
+      },
+      "response": []
+    },
+    {
+      "name": "Imports - % GDP",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/NE.IMP.GNFS.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "NE.IMP.GNFS.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: NE.IMP.GNFS.ZS. Imports of goods and services as a percentage of GDP."
+      },
+      "response": []
+    },
+    {
+      "name": "Unemployment Rate - % Labor Force",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/SL.UEM.TOTL.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "SL.UEM.TOTL.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: SL.UEM.TOTL.ZS. Unemployment, total (% of total labor force), modeled ILO estimate."
+      },
+      "response": []
+    },
+    {
+      "name": "Employment in Industry - % Total Employment",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/SL.IND.EMPL.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "SL.IND.EMPL.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: SL.IND.EMPL.ZS. Employment in industry as a percentage of total employment."
+      },
+      "response": []
+    },
+    {
+      "name": "Employment in Services - % Total Employment",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{worldBankBaseUrl}}/country/{{countryCode}}/indicator/SL.SRV.EMPL.ZS?format=json&date={{startYear}}:{{endYear}}&per_page=100",
+          "host": [
+            "{{worldBankBaseUrl}}"
+          ],
+          "path": [
+            "country",
+            "{{countryCode}}",
+            "indicator",
+            "SL.SRV.EMPL.ZS"
+          ],
+          "query": [
+            {
+              "key": "format",
+              "value": "json"
+            },
+            {
+              "key": "date",
+              "value": "{{startYear}}:{{endYear}}"
+            },
+            {
+              "key": "per_page",
+              "value": "100"
+            }
+          ]
+        },
+        "description": "Indicator: SL.SRV.EMPL.ZS. Employment in services as a percentage of total employment."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "worldBankBaseUrl",
+      "value": "https://api.worldbank.org/v2",
+      "type": "string"
+    },
+    {
+      "key": "countryCode",
+      "value": "BRA",
+      "type": "string"
+    },
+    {
+      "key": "startYear",
+      "value": "1990",
+      "type": "string"
+    },
+    {
+      "key": "endYear",
+      "value": "2025",
+      "type": "string"
+    }
+  ]
+}
